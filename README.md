@@ -1,5 +1,6 @@
 ZodiacPress Custom Atlas Installer
 ==================================
+Version: 1.0
 
 This is a toolkit to help you install the ZodiacPress atlas in a separate database, instead of your WordPress database.
 
