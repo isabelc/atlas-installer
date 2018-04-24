@@ -21,9 +21,9 @@
  * @license    https://www.gnu.org/licenses/gpl-2.0.html  GNU GPLv2
  */
 
-ini_set('display_errors',1);// @test
 require_once 'helper-db.php';
-$complete = '<span class="okay">&#x2713; Done</span>';
+$done = '<span class="okay">&#x2713; Done</span>';
+$valid_db = zpai_check_db_details_valid();
 ?>
 <!DOCTYPE html>
 <html>
@@ -278,7 +278,9 @@ $complete = '<span class="okay">&#x2713; Done</span>';
 		  padding-left: 6px;
 		line-height: 1.618;
 		}
-
+		#zp-atlas-installer tr:first-of-type td:first-of-type{
+			line-height: 1.2;
+		}
 		#notices div {
 			padding: 14px;
 			margin: 0 0 14px;
@@ -293,7 +295,7 @@ $complete = '<span class="okay">&#x2713; Done</span>';
 		    background-color: #DFF2BF;
 		/* 	background: #0DA020; */
 		}
-		#notices .error {
+		#notices .error, .error {
 			background-color: #e24e4e;
 			color: #fff;
 		}
@@ -348,13 +350,6 @@ $complete = '<span class="okay">&#x2713; Done</span>';
 		  border-top-color: #333;
 		  animation: spinner 1s linear infinite;
 		}
-		#dbinstall-control input {
-		  max-width: 145px;
-		  margin-bottom:8px;
-		}
-		#dbinstall-control {
-		  line-height: 1.3;
-		}
 
 	</style>
 </head>
@@ -380,10 +375,12 @@ $complete = '<span class="okay">&#x2713; Done</span>';
 				<td>
 					<?php
 					//if custom db has been set, show 'Done'
-					if (zpai_are_db_details_set()) {
-						echo $complete;
+					if (true === $valid_db) {
+						echo $done;
 					} else {
-						echo '<br>';
+						?>
+						<span class="error"><?php echo $valid_db; ?></span>
+						<?php
 					}
 					?>
 				</td>
@@ -409,7 +406,7 @@ $complete = '<span class="okay">&#x2713; Done</span>';
 					* @todo update Current filesize of cities.txt
 					****************************************************/
 					if (file_exists($file) && filesize($file) === 275665461) {
-						echo $complete;
+						echo $done;
 					} else {
 						?>
 						<button id="import-<?php echo $basename; ?>" class="cd-button" value="<?php echo $filename; ?>">Download Data File  <span id="import-<?php echo $basename; ?>-spinner" class="loading-spinner"></span></button>
@@ -418,7 +415,7 @@ $complete = '<span class="okay">&#x2713; Done</span>';
 					?>
 				</td>
 				<td>
-					<span id="import-<?php echo $basename; ?>label"><strong>Step 2:</strong> Download the <code><?php echo $filename; ?></code> data file from Cosmic Plugins Data Export Server.  <mark>NOTE: this can take up to 2 minutes to complete.</mark></span>
+					<span id="import-<?php echo $basename; ?>label"><strong>Step 2:</strong> Download the <code><?php echo $filename; ?></code> data file from Cosmic Plugins Data Export Server.  <mark>NOTE: this can take up to 3 minutes to complete.</mark></span>
 				</td>
 			</tr>
 
@@ -426,8 +423,8 @@ $complete = '<span class="okay">&#x2713; Done</span>';
 				<td id="dbinstall-control"><input type="hidden" id="token" value="<?php echo crypt('nucHd73ksd73kdfIyd7Ykd0235d','xtdHnckcnd8f$Ds87Axichdn3'); ?>" />
 
 					<?php
-					if (zpai_is_atlas_installed()) {
-						echo $complete;
+					if (true === $valid_db && zpai_is_atlas_installed()) {
+						echo $done;
 					} else {
 						?>
 
@@ -438,7 +435,7 @@ $complete = '<span class="okay">&#x2713; Done</span>';
 					?>
 				</td>
 				<td>
-					<span id="dbinstall-label"><strong>Step 3:</strong> Install the atlas by importing all the cities data into your database. <mark>NOTE: This can take about 3 minutes because this database will be about 321 MB in size, holding 3.4 million records! That is one for each city, town, or village.</mark></span>
+					<span id="dbinstall-label"><strong>Step 3:</strong> Install the atlas by importing all the cities data into your database. <mark>NOTE: This can take about 4 minutes because this database will be about 321 MB in size, holding 3.4 million records! That is one for each city, town, or village.</mark></span>
 				</td>
 			</tr>
 

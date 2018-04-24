@@ -34,21 +34,37 @@ function zpai_get_db( $key ) {
 	}
 }
 
-// Are custom db details set?
-function zpai_are_db_details_set() {
-	return (zpai_get_db('host') && zpai_get_db('user') && zpai_get_db('password') && zpai_get_db('name'));
-}
+/**
+ * Checks if the database details are valid.
+ *
+ * @return mixed bool|string True if valid, string if db details are invalid, false is db details have not been set.
+ */
+function zpai_check_db_details_valid() {
+	$db_host = zpai_get_db('host');
+	$db_user = zpai_get_db('user');
+	$db_password = zpai_get_db('password');
+	$db_name = zpai_get_db('name');
 
-function zpai_is_atlas_installed() {
-	if (!zpai_are_db_details_set()) {
+	// Are the custom db details set?
+	if (empty($db_host) || empty($db_user) || empty($db_password) || empty($db_name)) {
 		return false;
 	}
 
+	$link = mysqli_connect($db_host, $db_user, $db_password, $db_name);
+
+	if (mysqli_connect_errno()) {
+		$out = sprintf("Invalid database details: %s", mysqli_connect_error());
+	} else {
+		$out = true;
+		mysqli_close($link);
+	}
+
+	return $out;
+}
+
+function zpai_is_atlas_installed() {
 	$installed = false;
 	$link = zpai_connect_db();
-
-	// connected
-
 	if ( zpai_db_exists($link) && zpai_table_exists($link) ) {
 
 		if(zpai_table_key_exists($link, 'PRIMARY') && zpai_table_key_exists($link, 'ix_name_country')) {
