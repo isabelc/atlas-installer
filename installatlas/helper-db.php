@@ -244,7 +244,7 @@ function zpai_table_key_exists($link, $key) {
  */
 function zpai_table_create_keys($link, $previous_results) {
 	$sql_1 = "ALTER TABLE zp_atlas MODIFY COLUMN geonameid bigint(20) UNSIGNED NOT NULL PRIMARY KEY";
-	$sql_2 = "CREATE INDEX ix_name_country ON zp_atlas (name,country DESC)";
+	$sql_2 = "CREATE INDEX ix_name_country ON zp_atlas (name(50),country(50) DESC)";
 
 	// create PRIMARY KEY
 
