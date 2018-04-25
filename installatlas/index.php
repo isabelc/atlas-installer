@@ -17,7 +17,7 @@
  *
  * @author     Isabel Castillo
  * @copyright  2018 Isabel Castillo
- * @version    1.2
+ * @version    1.2.1
  * @license    https://www.gnu.org/licenses/gpl-2.0.html  GNU GPLv2
  */
 
