@@ -14,7 +14,7 @@ if ($datafile !== $filename) {
 }
 $dir = sys_get_temp_dir();
 $official_size = 275665461;// Current filesize of cities.txt @todo update
-$url = 'https://download.cosmicplugins.com/' . $datafile;
+$url = 'https://storage.googleapis.com/zodiacpress_cities/' . $datafile;
 $file = $dir . '/' . $filename;
 $retry = isset($_GET['retry']) ? $_GET['retry'] : 0;
 

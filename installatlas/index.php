@@ -17,7 +17,7 @@
  *
  * @author     Isabel Castillo
  * @copyright  2018 Isabel Castillo
- * @version    1.2.1
+ * @version    1.3
  * @license    https://www.gnu.org/licenses/gpl-2.0.html  GNU GPLv2
  */
 
@@ -415,7 +415,7 @@ $valid_db = zpai_check_db_details_valid();
 					?>
 				</td>
 				<td>
-					<span id="import-<?php echo $basename; ?>label"><strong>Step 2:</strong> Download the <code><?php echo $filename; ?></code> data file from Cosmic Plugins Data Export Server.  <mark>NOTE: this can take up to 3 minutes to complete.</mark></span>
+					<span id="import-<?php echo $basename; ?>label"><strong>Step 2:</strong> Download the <code><?php echo $filename; ?></code> data file from Google Cloud.  <mark>NOTE: this can take up to 3 minutes to complete.</mark></span>
 				</td>
 			</tr>
 
